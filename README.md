@@ -5,6 +5,6 @@ Greetings and welcome to my collection of activities and projects! Enclosed, you
 
 ## Activities
 <ul>
-    <li><a target="_blank" href="https://github.com/simon-javier/CSST-102/blob/93c893220bd56cfc2eb9204dc42a5faddd23a54e/Lab%20Activity%201%3A%20Overview%20of%20Machine%20Learning%20Applications/LAB_ACT1%20-%20JAVIER_BSCS3B.pdf)">Lab Activity 1: Overview of Machine Learning Applications</a></li>
+    <li><a target="_blank" href="https://github.com/simon-javier/CSST-102/blob/d2f6ebaaf39167243dae6de239e6d539616ed5ff/Lab%20Activity%201%3A%20Overview%20of%20Machine%20Learning%20Applications/LAB_ACT1%20-%20JAVIER_BSCS3B.pdf">Lab Activity 1: Overview of Machine Learning Applications</a></li>
 
 </ul>
