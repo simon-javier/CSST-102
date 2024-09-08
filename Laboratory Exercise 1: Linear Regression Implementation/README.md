@@ -1,5 +1,8 @@
 # **House Price Prediction Using Linear Regression**
 
+## Notebook Link:
+> https://colab.research.google.com/drive/1tf06V5hJkDYTkEshk6CMHnlYsslH_ciM?usp=sharing
+
 ## **1. Introduction**
 The goal of this project is to predict house prices based on features such as the size of the house, the number of bedrooms, and the age of the house. A linear regression model was implemented from scratch, without using pre-built machine learning libraries such as Scikit-learn. This report summarizes the steps involved, including data preprocessing, model implementation, training, evaluation, and conclusions.
 
