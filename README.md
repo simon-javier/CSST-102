@@ -7,5 +7,6 @@ Greetings and welcome to my collection of activities and projects! Enclosed, you
 <ul>
     <li><a target="_blank" href="https://github.com/simon-javier/CSST-102/blob/d2f6ebaaf39167243dae6de239e6d539616ed5ff/Lab%20Activity%201%3A%20Overview%20of%20Machine%20Learning%20Applications/LAB_ACT1%20-%20JAVIER_BSCS3B.pdf">Lab Activity 1: Overview of Machine Learning Applications</a></li>
     <li><a target="_blank" href="https://github.com/simon-javier/CSST102-3B/tree/main/Machine%20Problem%20No.%201%3A%20Create%20Github%20Repository%20for%20the%20subject">Machine Problem No. 1: Create Github Repository for the subject.</a></li>
+    <li><a target="_blank" href="https://github.com/simon-javier/CSST102-3B/tree/main/Laboratory%20Exercise%201%3A%20Linear%20Regression%20Implementation">Laboratory Exercise 1: Linear Regression Implementation</a></li>
 
 </ul>
