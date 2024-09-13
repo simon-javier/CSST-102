@@ -1,133 +1,51 @@
 # **House Price Prediction Using Linear Regression**
 
 ## Notebook Link:
-> https://colab.research.google.com/drive/1tf06V5hJkDYTkEshk6CMHnlYsslH_ciM?usp=sharing
+> https://colab.research.google.com/drive/1Fmf3F9Aj6w7OR8O41_GDv4dbotID2ug3?usp=sharing
 
-## **1. Introduction**
-The goal of this project is to predict house prices based on features such as the size of the house, the number of bedrooms, and the age of the house. A linear regression model was implemented from scratch, without using pre-built machine learning libraries such as Scikit-learn. This report summarizes the steps involved, including data preprocessing, model implementation, training, evaluation, and conclusions.
+### 1. **Introduction**
 
-## **2. Data Preprocessing**
+Linear regression is a foundational technique in predictive modeling used to determine the relationship between a dependent variable and one or more independent variables. The goal is to model this relationship through a linear equation that can predict the value of the dependent variable (in this case, house prices) based on the values of the independent variables (e.g., size, number of bedrooms, age of the house, and proximity to downtown). Linear regression is widely used due to its simplicity and interpretability, making it a popular choice for analyzing real-world data and making future predictions.
 
+In this report, we implemented a linear regression model from scratch using Python and applied it to a dataset containing house prices. The model was trained using the least squares method to minimize the difference between the predicted and actual house prices. We evaluated the model’s performance using Mean Squared Error (MSE) and visualized its predictions.
 
-### **2.1 Handling Missing Values**
-After renaming the columns, the dataset was inspected for missing values. Missing values were found in some of the features. To handle this, the missing values were replaced with the mean of the respective column:
+### 2. **Data Preprocessing**
 
-```python
-df.fillna(df.mean(), inplace=True)
-```
+Before fitting the linear regression model, we performed several data preprocessing steps:
+- **Loading the dataset**: The dataset was loaded into a Pandas DataFrame.
+- **Handling missing values**: We identified any missing values in the dataset and opted to drop rows with missing data to avoid complications during modeling. In a real-world scenario, we could have used imputation techniques to fill in missing values.
+- **Normalization**: To ensure all features were on a similar scale, we normalized the features (`Size (sqft)`, `Bedrooms`, `Age`, and `Proximity to Downtown (miles)`) using `StandardScaler`. This step was crucial as it ensures that no one feature dominates the others in terms of magnitude, allowing the model to weigh each feature appropriately.
 
-This approach ensured that no data points were discarded while maintaining a reasonable estimate for the missing values.
+### 3. **Model Implementation**
 
-### **2.2 Loading and Renaming the Data**
-The dataset used for this project contained the following columns: `Size (sqft)`, `Bedrooms`, `Age`, and `Price`. To make the column names easier to work with, they were renamed to lowercase (`size`, `bedrooms`, `age`, `price`) using the following code:
+The linear regression model was implemented from scratch using the normal equation method. The normal equation directly computes the best-fitting model parameters (weights and intercept) without requiring iterative optimization.
 
-```python
-df.rename(columns={
-    'Size (sqft)': 'size',
-    'Bedrooms': 'bedrooms',
-    'Age': 'age',
-    'Price': 'price'
-}, inplace=True)
-```
-
-Renaming the columns ensured consistency in referencing them throughout the code.
-
-### **2.3 Normalizing the Data**
-Since the features such as house size, number of bedrooms, and age are on different scales, it was essential to normalize the data to avoid bias in the model. Z-score normalization was applied to scale the features:
-
-```python
-def normalize_column(column):
-    return (column - column.mean()) / column.std()
-
-df['size'] = normalize_column(df['size'])
-df['bedrooms'] = normalize_column(df['bedrooms'])
-df['age'] = normalize_column(df['age'])
-```
-
-Normalization helped bring all features to a similar scale, ensuring that none of the features dominated the others due to their range.
-
-## **3. Model Implementation**
-
-### **3.1 Linear Regression Overview**
-The linear regression model predicts the house price by learning the relationship between the target variable (house price) and the features (size, bedrooms, age). The model is based on the following equation:
-
+The formula used was:
 $\[
-\hat{y} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3
+\theta = (X^T X)^{-1} X^T y
 \]$
-
 Where:
-- $\(\hat{y}\)$ is the predicted price,
-- $\(x_1\)$ is the house size, $\(x_2\)$ is the number of bedrooms, and $\(x_3\)$ is the age of the house.
-- $\(\theta_0, \theta_1, \theta_2, \theta_3\)$ are the model parameters.
+- $\(X\)$ is the matrix of feature values.
+- $\(y\)$ is the vector of target values (house prices).
+- $\(\theta\)$ represents the model parameters (coefficients and intercept).
 
-### **3.2 Model Parameter Calculation**
-The model parameters were derived using the least squares method, with the following normal equation:
+We also defined a `predict` function that allows the model to generate predictions based on new input features. The features were normalized before making predictions to maintain consistency with the training data.
 
-$\[
-\theta = (X^TX)^{-1}X^Ty
-\]$
+### 4. **Model Training & Evaluation**
 
-Where $\(X\)$ is the matrix of features (with an additional column of ones for the intercept), and $\(y\)$ is the target variable (house prices).
+The dataset was split into training (80%) and testing (20%) sets to evaluate the model's ability to generalize to new data. The model was trained on the training set, and the following evaluation metrics were used:
+- **Mean Squared Error (MSE)**: MSE was used to quantify the difference between the predicted and actual house prices. A lower MSE indicates that the model’s predictions are closer to the true values.
 
-The following code was used to calculate the model parameters:
+Results:
+- **Training Set MSE**: The MSE for the training set was calculated to assess how well the model fit the data.
+- **Testing Set MSE**: The MSE for the testing set was calculated to evaluate the model’s performance on unseen data.
 
-```python
-theta = np.linalg.inv(X.T.dot(X)).dot(X.T).dot(y)
-```
+We also created a plot to visualize the relationship between `Size (sqft)` and `Price`, showing the actual house prices and the regression line predicted by the model. The plot helped illustrate the model’s accuracy in predicting house prices based on house size.
 
-### **3.3 Prediction Function**
-A function was implemented to predict house prices based on the learned model parameters:
+### 5. **Conclusion**
 
-```python
-def predict(features, theta):
-    features = np.insert(features, 0, 1)  # Add intercept term
-    return features.dot(theta)
-```
+The linear regression model was successfully implemented from scratch and trained on the house price dataset. The model was able to predict house prices with reasonable accuracy, as demonstrated by the low MSE values. However, a few challenges were encountered during the process:
+- **Missing Data**: Dropping rows with missing values reduced the amount of data available for training. In future work, imputation techniques or more sophisticated methods could be used to handle missing data without discarding information.
+- **Feature Scaling**: Normalizing the features was crucial for the model’s performance. Without normalization, certain features (like `Size (sqft)`) would dominate others due to their scale.
 
-## **4. Model Training**
-
-### **4.1 Splitting the Dataset**
-The dataset was split into training and testing sets, with 80% of the data used for training and 20% for testing. The `train_test_split` method from Scikit-learn was used for this purpose.
-
-### **4.2 Training and Mean Squared Error (MSE)**
-The model was trained on the training data using the normal equation. The Mean Squared Error (MSE) was calculated to evaluate the performance on the training set:
-
-$\[
-\text{MSE} = \frac{1}{n}\sum_{i=1}^{n} (\hat{y}_i - y_i)^2
-\]$
-
-The training MSE was computed as follows:
-
-```python
-train_mse = np.mean((y_train - y_train_pred) ** 2)
-```
-
-## **5. Model Evaluation**
-
-### **5.1 Testing the Model**
-The trained model was evaluated on the testing set, and the MSE for the test data was calculated. A lower MSE indicates that the model generalizes well to unseen data. The test MSE was calculated similarly to the training MSE.
-
-### **5.2 Visualizing the Results**
-To visualize the model's performance, the predicted house prices were plotted against the actual house prices for the test data. This allowed us to assess how well the model fits the data.
-
-```python
-plt.scatter(X_test[:, 1], y_test, color='blue', label='Actual')
-plt.scatter(X_test[:, 1], y_test_pred, color='red', label='Predicted')
-plt.xlabel('Size (Normalized)')
-plt.ylabel('Price')
-plt.legend()
-plt.show()
-```
-
-The plot shows a reasonable fit of the regression line, indicating that the model captured the general trend of the data.
-
-## **6. Challenges Encountered**
-
-### **6.1 Handling Missing Data**
-One of the initial challenges was dealing with missing values in the dataset. Various strategies, such as dropping rows or filling them with mean values, were considered. The final approach involved replacing missing values with the column mean, which maintained the integrity of the dataset without losing any data points.
-
-### **6.2 Feature Scaling**
-Another challenge was ensuring that the features were scaled appropriately. Without normalization, features with larger numerical ranges (e.g., house size) could have dominated the model's predictions. Normalizing the data resolved this issue.
-
-### **6.3 Renaming Columns**
-The dataset originally had inconsistent column names (e.g., `Size (sqft)`, `Bedrooms`). Renaming the columns to lowercase provided consistency and made the code easier to read and manage.
+To further improve the model, we could explore additional techniques such as feature engineering (creating new features from the existing ones), regularization (to prevent overfitting), or using more complex models (such as polynomial regression) for better prediction accuracy.
