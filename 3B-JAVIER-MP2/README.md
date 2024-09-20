@@ -1,5 +1,3 @@
-fix this
-
 # **House Price Prediction Using Linear Regression**
 
 ## Notebook Link:
